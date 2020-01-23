@@ -120,7 +120,7 @@ class HousePricePredictor:
         print ("model", model)
         try:
             y_pred = model.predict(X_test)
-            return y_pred
+            return list(y_pred)
         except Exception as e:
             print (">>> Failed : predict ", str(e))
             return None
@@ -136,7 +136,7 @@ class HousePricePredictor:
         try:
             y_pred = model.predict(input_df_)
             print ("y_pred :", y_pred)
-            return str(y_pred)
+            return dict(y_pred)
         except Exception as e:
             print (">>> Failed : predict_with_input ", str(e))
             return None
