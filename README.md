@@ -45,15 +45,20 @@ $ pytest -v tests/
 # platform darwin -- Python 3.6.10, pytest-5.3.3, py-1.8.1, pluggy-0.13.1 -- /Users/yennanliu/anaconda3/envs/yen_dev/bin/python
 # cachedir: .pytest_cache
 # rootdir: /Users/yennanliu/HousePricePredAPI
-# collected 7 items                                                            
+# collected 10 items                                                           
 
-# tests/test_api.py::test_404_page_not_found PASSED                      [ 14%]
-# tests/test_api.py::test_api_helloworld PASSED                          [ 28%]
-# tests/test_api.py::test_get_model_list PASSED                          [ 42%]
-# tests/test_api.py::test_get_predict_list PASSED                        [ 57%]
-# tests/test_api.py::test_train_house_price_model PASSED                 [ 71%]
-# tests/test_api.py::test_predict_house_price PASSED                     [ 85%]
-# tests/test_api.py::test_predict_house_price_with_input PASSED          [100%]
+# tests/test_api.py::test_404_page_not_found PASSED                      [ 10%]
+# tests/test_api.py::test_api_helloworld PASSED                          [ 20%]
+# tests/test_api.py::test_get_model_list PASSED                          [ 30%]
+# tests/test_api.py::test_get_predict_list PASSED                        [ 40%]
+# tests/test_api.py::test_train_house_price_model PASSED                 [ 50%]
+# tests/test_api.py::test_predict_house_price PASSED                     [ 60%]
+# tests/test_api.py::test_predict_house_price_with_input PASSED          [ 70%]
+# tests/test_predict.py::test_list_model PASSED                          [ 80%]
+# tests/test_predict.py::test_list_prediction PASSED                     [ 90%]
+# tests/test_predict.py::test_save_model PASSED                          [100%]
+
+# ============================== warnings summary ==============================
 
 # CI/CD
 ```
