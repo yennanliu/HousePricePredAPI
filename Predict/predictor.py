@@ -85,12 +85,20 @@ class HousePricePredictor:
 
     def _check_input_data(self, df):
         # check input df column type
-        for column in df.columns:
-            if df[column].dtype not in ['int64', 'float64']:
+        for col in df.columns:
+            if df[col].dtype not in ['int64', 'float64']:
                 print (">>> input data type is non-validated ")
                 return pd.DataFrame()
+        df_train_, df_test_ = self._process_data()
+        # for col in df.columns:
+        #     median = df_train_[col].median()
+        #     std = df_train_[col].std()
+        #     left_boundary = median - 2*std
+        #     right_boundary = median + 2*std
+        #     if df[col] < left_boundary or df[col] > right_boundary:
+        #         print (">>> input data value is out of 2 standard deviation")
+        #         return pd.DataFrame()
         return df
-        #pass
 
     def _prepare_train_data(self):
         train, test = self._process_data()
