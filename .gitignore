@@ -3,3 +3,4 @@ model/*
 output/*
 Predict/__pycache__/
 api/__pycache__/
+tests/__pycache__
