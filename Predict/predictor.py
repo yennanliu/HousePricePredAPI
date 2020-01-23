@@ -136,7 +136,7 @@ class HousePricePredictor:
         try:
             y_pred = model.predict(input_df_)
             print ("y_pred :", y_pred)
-            return dict(y_pred)
+            return str(y_pred)
         except Exception as e:
             print (">>> Failed : predict_with_input ", str(e))
             return None

@@ -40,6 +40,21 @@ Local dev -> Local train -> Docker build ->  Unit-test -> Docker deployment -> D
 ## Development 
 ```bash
 # unit test 
+$ pytest -v tests/
+# ============================ test session starts =============================
+# platform darwin -- Python 3.6.10, pytest-5.3.3, py-1.8.1, pluggy-0.13.1 -- /Users/yennanliu/anaconda3/envs/yen_dev/bin/python
+# cachedir: .pytest_cache
+# rootdir: /Users/yennanliu/HousePricePredAPI
+# collected 7 items                                                            
+
+# tests/test_api.py::test_404_page_not_found PASSED                      [ 14%]
+# tests/test_api.py::test_api_helloworld PASSED                          [ 28%]
+# tests/test_api.py::test_get_model_list PASSED                          [ 42%]
+# tests/test_api.py::test_get_predict_list PASSED                        [ 57%]
+# tests/test_api.py::test_train_house_price_model PASSED                 [ 71%]
+# tests/test_api.py::test_predict_house_price PASSED                     [ 85%]
+# tests/test_api.py::test_predict_house_price_with_input PASSED          [100%]
+
 # CI/CD
 ```
 
