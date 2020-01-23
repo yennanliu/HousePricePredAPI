@@ -1,3 +1,5 @@
 ref.md
 model/*
 output/*
+Predict/__pycache__/
+api/__pycache__/
