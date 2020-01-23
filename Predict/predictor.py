@@ -14,6 +14,7 @@ class HousePricePredictor:
     def __init__(self):
         self.df_train = pd.read_csv("data/train.csv")
         self.df_test  = pd.read_csv("data/test.csv")
+        self.df_columns = ['MSSubClass', 'LotFrontage', 'LotArea', 'OverallQual', 'OverallCond', 'YearBuilt', 'YearRemodAdd', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF', 'LowQualFinSF', 'GrLivArea', 'BsmtFullBath', 'BsmtHalfBath', 'FullBath', 'HalfBath', 'BedroomAbvGr', 'KitchenAbvGr', 'TotRmsAbvGrd', 'Fireplaces', 'GarageYrBlt', 'GarageCars', 'GarageArea', 'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea', 'MiscVal', 'MoSold', 'YrSold']
 
     def _list_model(self):
         models = os.listdir("model")
@@ -67,18 +68,29 @@ class HousePricePredictor:
         return df_train_, df_test_
 
     def _process_input_data(self, df):
+        #data = df[self.df_columns]
         data = df
         # Label Encoding
-        for f in data.columns:
-            if data[f].dtype=='object':
+        for column in data.columns:
+            if data[column].dtype == 'object':
                 #lbl = preprocessing.LabelEncoder()
                 #lbl.fit(list(data[f].values))
                 #data[f] = lbl.transform(list(data[f].values))     
-                del data[f]      
+                del data[column]      
         # Fill in the missing data
         data.fillna(0, inplace=True)
         df_ = data[: len(df)]
+        df_ = self._check_input_data(df_)
         return df_
+
+    def _check_input_data(self, df):
+        # check input df column type
+        for column in df.columns:
+            if df[column].dtype not in ['int64', 'float64']:
+                print (">>> input data type is non-validated ")
+                return pd.DataFrame()
+        return df
+        #pass
 
     def _prepare_train_data(self):
         train, test = self._process_data()
