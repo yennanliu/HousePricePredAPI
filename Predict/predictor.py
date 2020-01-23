@@ -27,11 +27,13 @@ class HousePricePredictor:
         now = datetime.now()
         current_time = now.strftime('%Y-%m-%d-%H:%M:%S')
         try:
-            model_name = "model/regr_model_{}.pickle".format(current_time)
+            model_name = "model/model_{}.pickle".format(current_time)
             pickle.dump(model, open(model_name, 'wb'))
             print (">>> Save model OK : ", model_name)
+            return True
         except Exception as e:
             print (">>> Model save failed", str(e))
+            return False
 
     def _load_model(self, model=None):
         models = os.listdir("model")
@@ -42,7 +44,7 @@ class HousePricePredictor:
             return models[model]
         model_dict = dict()
         for model in models:
-            model_dict[model.split("_")[2].split(".")[0]] = model
+            model_dict[model.split("_")[1].split(".")[0]] = model
         max_model_idx = max(model_dict.keys())
         model_name = model_dict[max_model_idx]
         return pickle.load(open("model/" + model_name,'rb'))
