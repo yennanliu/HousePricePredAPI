@@ -33,5 +33,12 @@ def test_train_house_price_model():
         print ("response :", response)
         assert response.status_code == 201 
 
+def test_predict_house_price():
+    with app.test_client()as c:
+        response = c.get('/REST/api/v1.0/_predict')
+        print ("response :", response)
+        assert response.status_code == 201 
+
+
 if __name__ == '__main__':
     pytest.main([__file__])
