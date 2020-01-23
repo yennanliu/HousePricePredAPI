@@ -48,10 +48,10 @@ def predict_house_price():
     cli_args = request.json 
     h = HousePricePredictor()
     response = h._predict()
+    print (response)
     if not response:
         return str(None), 400
-    return '_predict Result : ', 201
-
+    return '_predict Result : {}'.format(response), 201
 
 @app.route('/REST/api/v1.0/_predict_with_input', methods=['POST'])
 def predict_house_price_with_input():
