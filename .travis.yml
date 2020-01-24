@@ -17,3 +17,8 @@ script:
 after_success:
   - coverage report
   - coveralls
+
+deploy:
+  - docker build . -t env
+  - docker images
+  - docker ps -a 
