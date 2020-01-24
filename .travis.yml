@@ -1,10 +1,14 @@
 sudo: required
+
 language: python
+
 services:
   - docker
+
 branches:
   only:
   - master
+  
 notifications:
   email:
     on_failure: always
@@ -29,7 +33,7 @@ after_success:
   - coverage report
   - coveralls
 
-deploy:
+build:
   - docker build . -t env
   - docker images
   - docker ps -a 
