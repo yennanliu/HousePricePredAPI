@@ -8,7 +8,7 @@ services:
 branches:
   only:
   - master
-  
+
 notifications:
   email:
     on_failure: always
@@ -28,8 +28,6 @@ script:
   - pytest -v tests/
   - coverage run tests/test_api.py
   - coverage run tests/test_predict.py 
-
-after_success:
   - coverage report
   - coveralls
 
