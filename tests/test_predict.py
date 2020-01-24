@@ -26,7 +26,7 @@ def test_save_model():
 def test_load_model():
     h = HousePricePredictor()
     model = h._load_model()
-    assert str(type(model)) == "<class 'sklearn.linear_model._base.LinearRegression'>"
+    assert str(type(model)) == "<class 'sklearn.linear_model._base.LinearRegression'>"  or str(type(model)) == "<class 'sklearn.linear_model.base.LinearRegression'>" 
 
 def test_process_data():
     h = HousePricePredictor()
