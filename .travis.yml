@@ -1,4 +1,15 @@
+sudo: required
 language: python
+services:
+  - docker
+branches:
+  only:
+  - master
+notifications:
+  email:
+    on_failure: always
+    recipients:
+      - f339339@gmail.com
 python:
 
   - "3.5"
