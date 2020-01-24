@@ -3,7 +3,6 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import StratifiedKFold, KFold, RepeatedKFold, GroupKFold, GridSearchCV, train_test_split, TimeSeriesSplit
 from sklearn import metrics, linear_model, preprocessing
-from sklearn.metrics import mean_absolute_error, r2_score
 import os, pickle, json
 from pandas.io.json import json_normalize
 from datetime import datetime
@@ -49,6 +48,18 @@ class HousePricePredictor:
         max_model_idx = max(model_dict.keys())
         model_name = model_dict[max_model_idx]
         return pickle.load(open("model/" + model_name,'rb'))
+
+    def _evaluate(self, y_true, y_pred):
+        _metrics = {
+            'rmse': np.sqrt(((y_pred - y_true) ** 2).mean()),
+            'explained_variance_score': metrics.explained_variance_score(y_true, y_pred),
+            'mean_absolute_error': metrics.mean_absolute_error(y_true, y_pred),
+            'mean_squared_error': metrics.mean_squared_error(y_true, y_pred),
+            'mean_squared_log_error': metrics.mean_squared_log_error(y_true, y_pred),
+            'median_absolute_error': metrics.median_absolute_error(y_true, y_pred),
+            'r2_score': metrics.r2_score(y_true, y_pred)
+            }
+        return _metrics 
 
     def _process_data(self):
         df_train = self.df_train
@@ -122,10 +133,13 @@ class HousePricePredictor:
         y_pred = regr.predict(X_test_)
         # The coefficients
         print('Coefficients: \n', regr.coef_)
-        # The mean squared error
-        print('Mean absolute error: %.2f' % mean_absolute_error(y_test, y_pred_val))
-        # The coefficient of determination: 1 is perfect prediction
-        print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_val))
+        print (" >>> evaluate metric ")
+        eval_metric = self._evaluate(y_test, y_pred_val)
+        print (eval_metric)
+        # # The mean squared error
+        # print('Mean absolute error: %.2f' % mean_absolute_error(y_test, y_pred_val))
+        # # The coefficient of determination: 1 is perfect prediction
+        # print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_val))
         result = pd.DataFrame({"Id": test["Id"],"SalePrice": y_pred,})
         result.to_csv("output/submission_reg.csv", index=False)
         print ("result :", result)
@@ -142,6 +156,9 @@ class HousePricePredictor:
         print ("model", model)
         try:
             y_pred = model.predict(X_test)
+            print (" >>> evaluate metric ")
+            eval_metric = self._evaluate(y_test, y_pred)
+            print (eval_metric)
             return list(y_pred)
         except Exception as e:
             print (">>> Failed : predict ", str(e))
