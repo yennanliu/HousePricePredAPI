@@ -8,8 +8,8 @@
 
 ```bash
 # Docker
-$ docker build . -t env
-$ docker run -p 8000:8000 -it env 
+$ docker build . -t house_pred_env
+$ docker run -p 8000:8000 -it house_pred_env 
 $ curl http://localhost:8000/REST/api/v1.0/train
 $ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_test_json.py) http://localhost:8000/REST/api/v1.0/predict_with_input
 
