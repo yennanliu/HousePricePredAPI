@@ -29,7 +29,8 @@ script:
   - pytest -v tests/
 
 build:
-  - docker build . -t env
+  - docker build . -t house_pred_env
+  - docker run -it house_pred_env  echo 'docker test 123' 
   - docker images
   - docker ps -a 
 
