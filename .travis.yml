@@ -39,8 +39,8 @@ deploy:
   on:
     branch: master
 
-after_success:
-  - coverage run tests/test_api.py
-  - coverage run tests/test_predict.py 
-  - coverage report
-  - coveralls
+# after_success:
+#   - coverage run tests/test_api.py
+#   - coverage run tests/test_predict.py 
+#   - coverage report
+#   - coveralls
