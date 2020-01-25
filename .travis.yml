@@ -14,6 +14,7 @@ notifications:
     on_failure: always
     recipients:
       - f339339@gmail.com
+
 python:
 
   - "3.5"
@@ -28,7 +29,7 @@ install:
 script:
   - pytest -v tests/
 
-build:
+before_deploy:
   - docker build . -t house_pred_env
   - docker run -it house_pred_env  echo 'docker test 123' 
   - docker images
@@ -40,7 +41,7 @@ deploy:
   on:
     branch: master
 
-# after_success:
+# after_deploy:
 #   - coverage run tests/test_api.py
 #   - coverage run tests/test_predict.py 
 #   - coverage report
