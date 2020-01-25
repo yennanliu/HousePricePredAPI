@@ -16,7 +16,12 @@ def index():
 # return 404 if not valid API url 
 @app.errorhandler(404)
 def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
+    return make_response(jsonify({'error': 'HTTP 404 : Not found'}), 404)
+
+# return 400 if bad request
+@app.errorhandler(400)
+def bad_request(error):
+    return make_response(jsonify({'error': 'HTTP 400 : bad request'}), 404)
 
 @app.route('/REST/api/v1.0/model_list')
 def get_model_list():
