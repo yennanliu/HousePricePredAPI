@@ -59,7 +59,7 @@ class HousePricePredictor:
         try:
             output_name  = "output/pred_output_{}.csv".format(current_time)
             df.to_csv(output_name, index=False)
-            pprint (">>> Save output OK : ", output_name)
+            print (">>> Save output OK : ", output_name)
         except Exception as e:
             print (">>> output save failed", str(e))
             return False
@@ -205,7 +205,7 @@ class HousePricePredictor:
         self._save_output(result)
         # save model
         self._save_model(regr)
-        return result
+        return result.to_dict()
 
     def _predict(self):
         """
@@ -242,7 +242,7 @@ class HousePricePredictor:
         try:
             y_pred = model.predict(input_df_)
             print ("y_pred :", y_pred)
-            return str(y_pred)
+            return float(y_pred[0])
         except Exception as e:
             print (">>> Failed : predict_with_input ", str(e))
             return None
