@@ -18,7 +18,7 @@ def index():
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
-@app.route('/REST/api/v1.0/_model_list')
+@app.route('/REST/api/v1.0/model_list')
 def get_model_list():
     cli_args = request.json 
     h = HousePricePredictor()
@@ -35,7 +35,7 @@ def get_predict_list():
     return 'prediction list  : {}'.format(prediction_list), 201
 
 # call house price prediction model
-@app.route('/REST/api/v1.0/_train')
+@app.route('/REST/api/v1.0/train')
 def train_house_price_model():
     cli_args = request.json 
     h = HousePricePredictor()
@@ -43,7 +43,7 @@ def train_house_price_model():
     print (response)
     return '_train Result : ', 201
 
-@app.route('/REST/api/v1.0/_predict')
+@app.route('/REST/api/v1.0/predict')
 def predict_house_price():
     cli_args = request.json 
     h = HousePricePredictor()
@@ -53,7 +53,7 @@ def predict_house_price():
         return str(None), 400
     return '_predict Result : {}'.format(response), 201
 
-@app.route('/REST/api/v1.0/_predict_with_input', methods=['POST'])
+@app.route('/REST/api/v1.0/predict_with_input', methods=['POST'])
 def predict_house_price_with_input():
     cli_args = request.json 
     h = HousePricePredictor()
