@@ -35,6 +35,9 @@ build:
   - docker images
   - docker ps -a 
 
+deploy:
+  script: echo "REGISTRY_PASS $REGISTRY_PASS" && echo "REGISTRY_USER $REGISTRY_USER" && export REGISTRY_PASS=$REGISTRY_PASS && export REGISTRY_USER=$REGISTRY_USER && bash script/deploy_dockerhub.sh
+
 after_success:
   - coverage report
   - coveralls
