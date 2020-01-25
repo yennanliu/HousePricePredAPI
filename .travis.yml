@@ -34,7 +34,10 @@ build:
   - docker ps -a 
 
 deploy:
+  provider: script
   script: echo "REGISTRY_PASS $REGISTRY_PASS" && echo "REGISTRY_USER $REGISTRY_USER" && export REGISTRY_PASS=$REGISTRY_PASS && export REGISTRY_USER=$REGISTRY_USER && bash script/deploy_dockerhub.sh
+  on:
+    branch: master
 
 after_success:
   - coverage run tests/test_api.py
