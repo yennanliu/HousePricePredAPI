@@ -9,6 +9,9 @@ from datetime import datetime
 
 
 class HousePricePredictor:
+    """
+    main class do house price prediction 
+    """
 
     def __init__(self):
         self.df_train = pd.read_csv("data/train.csv")
@@ -16,14 +19,25 @@ class HousePricePredictor:
         self.df_columns = ['MSSubClass', 'LotFrontage', 'LotArea', 'OverallQual', 'OverallCond', 'YearBuilt', 'YearRemodAdd', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF', 'LowQualFinSF', 'GrLivArea', 'BsmtFullBath', 'BsmtHalfBath', 'FullBath', 'HalfBath', 'BedroomAbvGr', 'KitchenAbvGr', 'TotRmsAbvGrd', 'Fireplaces', 'GarageYrBlt', 'GarageCars', 'GarageArea', 'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea', 'MiscVal', 'MoSold', 'YrSold']
 
     def _list_model(self):
+        """
+        list saved models
+        """
         models = os.listdir("model")
         return str(models)
 
     def _list_prediction(self):
+        """
+        list ML prediction outputs
+        """
         predictions = os.listdir("output")
         return str(predictions)
 
     def _save_model(self, model):
+        """
+        method to save model as pickle
+        : input  : sklearn model object 
+        : output : python pickle file 
+        """
         now = datetime.now()
         current_time = now.strftime('%Y-%m-%d-%H:%M:%S')
         try:
@@ -36,6 +50,11 @@ class HousePricePredictor:
             return False
 
     def _save_output(self, df):
+        """
+        method to save output as csv
+        : input  : pandas dataframe 
+        : output : csv file
+        """
         now = datetime.now()
         current_time = now.strftime('%Y-%m-%d-%H:%M:%S')
         try:
@@ -47,20 +66,33 @@ class HousePricePredictor:
             return False
 
     def _load_model(self, model=None):
+        """
+        method to load saved model, if no input model name, will load the "latest" model (timestamp)
+        : input  : model name (string)
+        : output : sklearn model object 
+        """
         models = os.listdir("model")
+        # if no any saved model, then have to train one first 
         if not models:
             print (">>> No saved model, please train fitst")
             return 
+        # load the model fit given name
         elif model != None:
             return models[model]
         model_dict = dict()
         for model in models:
             model_dict[model.split("_")[1].split(".")[0]] = model
+        # load the latest model (timestamp)
         max_model_idx = max(model_dict.keys())
         model_name = model_dict[max_model_idx]
         return pickle.load(open("model/" + model_name,'rb'))
 
     def _evaluate(self, y_true, y_pred):
+        """
+        method get model metrics
+        : input  : y_true, y_pred : numpy array
+        : output : python dict
+        """
         _metrics = {
             'rmse': np.sqrt(((y_pred - y_true) ** 2).mean()),
             'explained_variance_score': metrics.explained_variance_score(y_true, y_pred),
@@ -73,39 +105,47 @@ class HousePricePredictor:
         return _metrics 
 
     def _process_data(self):
+        """
+        method process data for model train 
+        : output : df_train_, df_test_ : pandas dataframe
+        """
         df_train = self.df_train
         df_test = self.df_test
         data = pd.concat([df_train, df_test])   
-        # Label Encoding
+        # remove all non-numerical columns 
         for f in data.columns:
             if data[f].dtype=='object':
-                lbl = preprocessing.LabelEncoder()
-                #lbl.fit(list(data[f].values))
-                #data[f] = lbl.transform(list(data[f].values)) 
                 del data[f]          
-        # Fill in the missing data
+        # fill in the missing data
         data.fillna(0, inplace=True)
         df_train_ = data[: len(df_train)]
         df_test_ = data[-len(df_test) :]
         return df_train_, df_test_
 
     def _process_input_data(self, df):
+        """
+        method process data for prediction (from API call)
+        : input :  df  : pandas dataframe 
+        : output : df_ : pandas dataframe 
+        """
         #data = df[self.df_columns]
         data = df
-        # Label Encoding
+        # remove all non-numerical columns 
         for column in data.columns:
-            if data[column].dtype == 'object':
-                #lbl = preprocessing.LabelEncoder()
-                #lbl.fit(list(data[f].values))
-                #data[f] = lbl.transform(list(data[f].values))     
+            if data[column].dtype == 'object':     
                 del data[column]      
-        # Fill in the missing data
+        # fill in the missing data
         data.fillna(0, inplace=True)
         df_ = data[: len(df)]
         df_ = self._check_input_data(df_)
         return df_
 
     def _check_input_data(self, df):
+        """
+        method check/validate data from API call 
+        : input :  df  : pandas dataframe 
+        : output : df_ : pandas dataframe 
+        """
         # check input df column type
         for col in df.columns:
             if df[col].dtype not in ['int64', 'float64']:
@@ -123,6 +163,10 @@ class HousePricePredictor:
         return df
 
     def _prepare_train_data(self):
+        """
+        method prepare X, y  data from model train
+        : output :X_train, X_test, y_train,  y_test, test_  : pandas dataframe, numpy array, pandas dataframe, numpy array, numpy array 
+        """
         train, test = self._process_data()
         y = train["SalePrice"]
         # Drop all the ID variables
@@ -133,6 +177,10 @@ class HousePricePredictor:
         return X_train, X_test, y_train, y_test, test_
 
     def _train(self):
+        """
+        mothod for model train 
+        : output : csv file
+        """
         train, test = self._process_data()
         X_train, X_test, y_train,  y_test, test_ = self._prepare_train_data()
         # Create linear regression object
@@ -156,6 +204,10 @@ class HousePricePredictor:
         return result
 
     def _predict(self):
+        """
+        mothod for model predict 
+        : output : python list
+        """
         X_train, X_test, y_train,  y_test, test_ = self._prepare_train_data()
         # load model
         model = self._load_model()
@@ -171,6 +223,11 @@ class HousePricePredictor:
             return None
 
     def _predict_with_input(self, input_json):
+        """
+        mothod for model predict from API call
+        : input  : json
+        : output : python string
+        """
         print ("input_json : ", input_json)
         #input_dict = json.loads(str(input_json))
         input_df = json_normalize(input_json)
