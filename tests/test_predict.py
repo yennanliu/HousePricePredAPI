@@ -69,6 +69,7 @@ def test_predict_with_nonvalidated_input():
     input_json = {"myjson":123}
     h = HousePricePredictor()
     result = h._predict_with_input(input_json)
+    print ("*** result", result)
     assert result == None
 
 if __name__ == '__main__':

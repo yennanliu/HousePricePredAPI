@@ -147,19 +147,24 @@ class HousePricePredictor:
         : output : df_ : pandas dataframe 
         """
         # check input df column type
+        if list(df.columns) != list(self.df_columns):
+            print (">>> input json not in the validated form, the desired form : {}".format(self.df_columns))
+            return pd.DataFrame()
         for col in df.columns:
             if df[col].dtype not in ['int64', 'float64']:
-                print (">>> input data type is non-validated ")
+                print (">>> input json type is non-validated")
                 return pd.DataFrame()
         df_train_, df_test_ = self._process_data()
-        # for col in df.columns:
-        #     median = df_train_[col].median()
-        #     std = df_train_[col].std()
-        #     left_boundary = median - 2*std
-        #     right_boundary = median + 2*std
-        #     if df[col] < left_boundary or df[col] > right_boundary:
-        #         print (">>> input data value is out of 2 standard deviation")
-        #         return pd.DataFrame()
+        for col in df.columns:
+            median = df_train_[col].median()
+            std = df_train_[col].std()
+            left_boundary = median - 3*std
+            right_boundary = median + 3*std
+            column_val = float(df[col].iloc[0])
+            if (column_val < left_boundary) or (column_val > right_boundary):
+               print (">>> input json value is out of 3 standard deviation")
+               print ("columns : {}, value : {}, left_boundary : {}, right_boundary : {}".format(col, column_val, left_boundary, right_boundary))
+               return pd.DataFrame()
         return df
 
     def _prepare_train_data(self):
