@@ -36,8 +36,6 @@ Local dev -> Local train -> Unit-test -> Docker build -> Travis (CI/CD) -> Deplo
 
 ## Quick start
 
-### Quick start Docker
-
 <details>
 <summary>Quick start Docker</summary>
 
@@ -50,8 +48,6 @@ $ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_tes
 
 ```
 </details>
-
-### Quick start maunally
 
 <details>
 <summary>Quick start maunally</summary>
@@ -68,11 +64,8 @@ $ curl -i -H "Content-Type: application/json" -X POST -d '{"MSSubClass":20.0,"Lo
 ```
 </details>
 
-### API
-
 <details>
 <summary>Useage of the API</summary>
-
 
 1. Check API status
 - Endpoint: `/`
@@ -121,7 +114,6 @@ $ curl http://localhost:8000/REST/api/v1.0/model_list
 $ curl http://localhost:8000/REST/api/v1.0/predict_list
 
 ```
-
 </details>
 
 ## Development 
