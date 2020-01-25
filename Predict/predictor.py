@@ -162,7 +162,7 @@ class HousePricePredictor:
             column_val = float(df[col].iloc[0])
             if (column_val < left_boundary) or (column_val > right_boundary):
                print (">>> input json value is out of 3 standard deviation")
-               print ("columns : {}, value : {}, left_boundary : {}, right_boundary : {}".format(col, column_val, left_boundary, right_boundary))
+               print ("column : {}, value : {}, left_boundary : {}, right_boundary : {}".format(col, column_val, left_boundary, right_boundary))
                return pd.DataFrame()
         return df
 
@@ -233,7 +233,9 @@ class HousePricePredictor:
         : output : python string
         """
         print ("input_json : ", input_json)
-        #input_dict = json.loads(str(input_json))
+        if type(input_json) != dict:
+            print (">>> input_json not in the desired form : dict") 
+            return None     
         input_df = json_normalize(input_json)
         # load model
         model = self._load_model()
