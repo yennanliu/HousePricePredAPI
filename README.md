@@ -62,7 +62,7 @@ $ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_tes
 # Maunally method I 
 $ python api/app.py
 $ curl http://localhost:8000/REST/api/v1.0/train
-$  curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_test_json.py) http://localhost:8000/REST/api/v1.0/predict_with_input
+$ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_test_json.py) http://localhost:8000/REST/api/v1.0/predict_with_input
 
 # Maunally method II
 $ python api/app.py
@@ -161,7 +161,10 @@ $ pytest -v tests/
 </details>
 
 ## Deployment 
-- deploy to  
+1. Deploy to DockerHub/AWS ECR
+2. Set up AWS ECS
+3. Set up AWS ECS task
+4. Run AWS ECS container service 
 
 ## TODO
 
