@@ -116,21 +116,21 @@ class HousePricePredictor:
         y = train["SalePrice"]
         # Drop all the ID variables
         X = train.drop(["Id", "SalePrice"], axis=1)
-        X_test_ = test.drop(["Id", "SalePrice"], axis=1)
+        test_ = test.drop(["Id", "SalePrice"], axis=1)
         # train, test split
         X_train, X_test, y_train,  y_test = train_test_split(X, y, test_size=0.3, random_state = 0)
-        return X_train, X_test, y_train, y_test, X_test_
+        return X_train, X_test, y_train, y_test, test_
 
     def _train(self):
         train, test = self._process_data()
-        X_train, X_test, y_train,  y_test, X_test_ = self._prepare_train_data()
+        X_train, X_test, y_train,  y_test, test_ = self._prepare_train_data()
         # Create linear regression object
         regr = linear_model.LinearRegression()
         # Train the model using the training sets
         regr.fit(X_train, y_train)
         # Make predictions using the testing set
         y_pred_val = regr.predict(X_test)
-        y_pred = regr.predict(X_test_)
+        y_pred = regr.predict(test_)
         # The coefficients
         print('Coefficients: \n', regr.coef_)
         print (" >>> evaluate metric ")
@@ -150,7 +150,7 @@ class HousePricePredictor:
         return result
 
     def _predict(self):
-        X_train, X_test, y_train,  y_test, X_test_ = self._prepare_train_data()
+        X_train, X_test, y_train,  y_test, test_ = self._prepare_train_data()
         # load model
         model = self._load_model()
         print ("model", model)
