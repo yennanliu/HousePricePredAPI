@@ -4,7 +4,13 @@
 - Develop a web service (ML api) can predict the price of house based on the [Ames housing dataset](https://www.kaggle.com/c/ames-housing-data). The web serice expose one end point that can take numerical input (79 variables json) and return prediction as output
 
 ## Architecture
-- dev
+<p align="center"><img src ="https://github.com/yennanliu/HousePricePredAPI/blob/master/doc/pic/architecture.svg" width="800" height="400"></p>
+
+- `Flask` as ML api server
+- `Docker hub` as service Docker repository
+- `AWS ECS` as container service run ML api via Docker
+- `AWS Elastic Load Balancer` automatically distributes incoming application traffic across multiple targets 
+- `AWS S3` as space storage models, ML output, and logs
 
 ## Process
 
@@ -29,7 +35,7 @@ Local dev -> Local train -> Unit-test -> Docker build -> Travis (CI/CD) -> Deplo
 
 ## Tech
 - Python3, Flask, scikit-learn, Pandas, Numpy, pytest
-- AWS ECS, ECR
+- AWS [ECS](https://aws.amazon.com/ecs/?nc1=h_ls), [ECR](https://aws.amazon.com/ecr/), Load Balancer
 - Docker 
 - Travis
 - Git
@@ -155,7 +161,7 @@ $ pytest -v tests/
 </details>
 
 ## Deployment 
-- dev 
+- deploy to  
 
 ## TODO
 
