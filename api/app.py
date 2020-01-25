@@ -29,7 +29,7 @@ def get_model_list():
     h = HousePricePredictor()
     model_list = h._list_model()
     print (model_list)
-    return 'model list  : {}'.format(model_list), 201
+    return {'model_list': model_list}, 201
 
 @app.route('/REST/api/v1.0/predict_list')
 def get_predict_list():
@@ -37,7 +37,7 @@ def get_predict_list():
     h = HousePricePredictor()
     prediction_list = h._list_prediction()
     print (prediction_list)
-    return 'prediction list  : {}'.format(prediction_list), 201
+    return {'prediction_list': prediction_list}, 201
 
 # call house price prediction model
 @app.route('/REST/api/v1.0/train')
