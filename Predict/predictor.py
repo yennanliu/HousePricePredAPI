@@ -35,6 +35,17 @@ class HousePricePredictor:
             print (">>> Model save failed", str(e))
             return False
 
+    def _save_output(self, df):
+        now = datetime.now()
+        current_time = now.strftime('%Y-%m-%d-%H:%M:%S')
+        try:
+            output_name  = "output/pred_output_{}.csv".format(current_time)
+            df.to_csv(output_name, index=False)
+            pprint (">>> Save output OK : ", output_name)
+        except Exception as e:
+            print (">>> output save failed", str(e))
+            return False
+
     def _load_model(self, model=None):
         models = os.listdir("model")
         if not models:
@@ -129,23 +140,18 @@ class HousePricePredictor:
         # Train the model using the training sets
         regr.fit(X_train, y_train)
         # Make predictions using the testing set
-        y_pred_val = regr.predict(X_test)
-        y_pred = regr.predict(test_)
+        y_pred = regr.predict(X_test)
+        y_pred_testset = regr.predict(test_)
         # The coefficients
         print('Coefficients: \n', regr.coef_)
         print (" >>> evaluate metric ")
-        eval_metric = self._evaluate(y_test, y_pred_val)
+        # model eval metric 
+        eval_metric = self._evaluate(y_test, y_pred)
         print (eval_metric)
-        # # The mean squared error
-        # print('Mean absolute error: %.2f' % mean_absolute_error(y_test, y_pred_val))
-        # # The coefficient of determination: 1 is perfect prediction
-        # print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_val))
-        result = pd.DataFrame({"Id": test["Id"],"SalePrice": y_pred,})
-        result.to_csv("output/submission_reg.csv", index=False)
-        print ("result :", result)
+        # save pred output 
+        result = pd.DataFrame({"Id": test["Id"],"SalePrice": y_pred_testset})
+        self._save_output(result)
         # save model
-        # model_path = "model/regr_model.pickle"
-        # pickle.dump(regr, open("model/regr_model.pickle", 'wb'))
         self._save_model(regr)
         return result
 
