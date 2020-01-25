@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.model_selection import StratifiedKFold, KFold, RepeatedKFold, GroupKFold, GridSearchCV, train_test_split, TimeSeriesSplit
-from sklearn import metrics, linear_model, preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn import metrics, linear_model
 import os, pickle, json
 from pandas.io.json import json_normalize
 from datetime import datetime
