@@ -205,7 +205,7 @@ class HousePricePredictor:
         self._save_output(result)
         # save model
         self._save_model(regr)
-        return result.to_dict()
+        return list(result['SalePrice'])
 
     def _predict(self):
         """

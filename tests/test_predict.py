@@ -52,7 +52,7 @@ def test_prepare_train_data():
 def test_train():
     h = HousePricePredictor()
     result = h._train()
-    assert str(type(result)) == "<class 'dict'>"
+    assert str(type(result)) == "<class 'list'>"
 
 def test_predict():
     h = HousePricePredictor()
