@@ -21,8 +21,20 @@ class HousePricePredictor:
         """
         list saved models
         """
-        models = os.listdir("model")
-        return str(models)
+        def load_json_file(filename):
+            with open(filename, 'r') as f:
+                data=f.read()
+            return json.loads(data)
+
+        files = os.listdir("model")
+        models = [ m for m in files if m.endswith(".pickle")]
+        models_evals = [ m for m in files if m.endswith(".json")]
+        model_details = {}
+        for m in models:
+            model_eval_file= "model/" + m.split(".")[0] + '_eval.json'
+            model_json = load_json_file(model_eval_file)
+            model_details[m] = model_json
+        return  model_details
 
     def _list_prediction(self):
         """

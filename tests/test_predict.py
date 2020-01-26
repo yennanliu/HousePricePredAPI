@@ -9,7 +9,7 @@ from Predict.predictor import HousePricePredictor
 def test_list_model():
     h = HousePricePredictor()
     models = h._list_model()
-    assert type(models) == str
+    assert type(models) == dict
 
 def test_list_prediction():
     h = HousePricePredictor()
