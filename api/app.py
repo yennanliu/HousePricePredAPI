@@ -45,7 +45,7 @@ def train_house_price_model():
     cli_args = request.json 
     h = HousePricePredictor()
     response = h._train()
-    print (response)
+    #print (response)
     return {'train_result': response}, 201
 
 @app.route('/REST/api/v1.0/predict')
@@ -53,7 +53,7 @@ def predict_house_price():
     cli_args = request.json 
     h = HousePricePredictor()
     response = h._predict()
-    print (response)
+    #print (response)
     if not response:
         return {'pred_result': None}, 400
     return {'pred_result': response}, 201
@@ -62,8 +62,6 @@ def predict_house_price():
 def predict_house_price_with_input():
     cli_args = request.json 
     h = HousePricePredictor()
-    print (">>> cli_args")
-    print (cli_args)
     input_data = cli_args
     response = h._predict_with_input(input_data)
     if not response:

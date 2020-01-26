@@ -195,7 +195,7 @@ class HousePricePredictor:
         y_pred = regr.predict(X_test)
         y_pred_testset = regr.predict(test_)
         # The coefficients
-        print('Coefficients: \n', regr.coef_)
+        #print('Coefficients: \n', regr.coef_)
         print (" >>> evaluate metric ")
         # model eval metric 
         eval_metric = self._evaluate(y_test, y_pred)
