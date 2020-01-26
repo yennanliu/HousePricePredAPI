@@ -26,12 +26,11 @@ class HousePricePredictor:
                 data=f.read()
             return json.loads(data)
 
-        files = os.listdir("model")
-        models = [ m for m in files if m.endswith(".pickle")]
-        models_evals = [ m for m in files if m.endswith(".json")]
+        models = [ m for m in os.listdir("model") if m.endswith(".pickle")]
+        models_evals = [ m for m in  os.listdir("model_eval")]
         model_details = {}
         for m in models:
-            model_eval_file= "model/" + m.split(".")[0] + '_eval.json'
+            model_eval_file= "model_eval/" + m.split(".")[0] + '_eval.json'
             model_json = load_json_file(model_eval_file)
             model_details[m] = model_json
         return  model_details
@@ -55,7 +54,7 @@ class HousePricePredictor:
             model_name = "model/model_{}.pickle".format(current_time)
             pickle.dump(model, open(model_name, 'wb'))
             print (">>> Save model OK : ", model_name)
-            model_eval = "model/model_{}_eval.json".format(current_time)
+            model_eval = "model_eval/model_{}_eval.json".format(current_time)
             with open(model_eval, 'w') as f:
                 json.dump(eval_metric, f)
                 print (">>> Save model eval OK : ", model_eval)
