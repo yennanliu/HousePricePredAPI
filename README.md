@@ -43,7 +43,7 @@ Local dev -> Local train -> Unit-test -> Docker build -> Travis (CI/CD) -> Deplo
 ```
 
 ## Tech
-- Python3, Flask, scikit-learn, Pandas, Numpy, pytest
+- Python3.6, Flask, scikit-learn, Pandas, Numpy, pytest
 - AWS [ECS](https://aws.amazon.com/ecs/?nc1=h_ls), [ECR](https://aws.amazon.com/ecr/), Load Balancer
 - Docker 
 - Travis
@@ -70,10 +70,11 @@ $ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_tes
 ```bash
 # Maunally method I 
 $ python api/app.py
-$ curl http://localhost:8000/REST/api/v1.0/train
+$ python script/init_model.py
 $ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_test_json.py) http://localhost:8000/REST/api/v1.0/predict_with_input
 
 # Maunally method II
+$ python script/init_model.py
 $ python api/app.py
 $ curl -i -H "Content-Type: application/json" -X POST -d '{"MSSubClass":20.0,"LotFrontage":100.0,"LotArea":17500.0,"OverallQual":7.0,"OverallCond":8.0,"YearBuilt":1959.0,"YearRemodAdd":2002.0,"MasVnrArea":0.0,"BsmtFinSF1":1406.0,"BsmtFinSF2":0.0,"BsmtUnfSF":496.0,"TotalBsmtSF":1902.0,"1stFlrSF":1902.0,"2ndFlrSF":0.0,"LowQualFinSF":0.0,"GrLivArea":1902.0,"BsmtFullBath":1.0,"BsmtHalfBath":0.0,"FullBath":2.0,"HalfBath":0.0,"BedroomAbvGr":3.0,"KitchenAbvGr":1.0,"TotRmsAbvGrd":7.0,"Fireplaces":2.0,"GarageYrBlt":1959.0,"GarageCars":2.0,"GarageArea":567.0,"WoodDeckSF":0.0,"OpenPorchSF":207.0,"EnclosedPorch":162.0,"3SsnPorch":0.0,"ScreenPorch":0.0,"PoolArea":0.0,"MiscVal":0.0,"MoSold":5.0,"YrSold":2010.0}' http://localhost:8000/REST/api/v1.0/predict_with_input
 ```
