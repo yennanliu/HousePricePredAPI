@@ -31,7 +31,7 @@ class HousePricePredictor:
         predictions = os.listdir("output")
         return str(predictions)
 
-    def _save_model(self, model):
+    def _save_model(self, model, eval_metric):
         """
         method to save model as pickle
         : input  : sklearn model object 
@@ -43,6 +43,10 @@ class HousePricePredictor:
             model_name = "model/model_{}.pickle".format(current_time)
             pickle.dump(model, open(model_name, 'wb'))
             print (">>> Save model OK : ", model_name)
+            model_eval = "model/model_{}_eval.json".format(current_time)
+            with open(model_eval, 'w') as f:
+                json.dump(eval_metric, f)
+                print (">>> Save model eval OK : ", model_eval)
             return True
         except Exception as e:
             print (">>> Model save failed", str(e))
@@ -204,7 +208,7 @@ class HousePricePredictor:
         result = pd.DataFrame({"Id": test["Id"],"SalePrice": y_pred_testset})
         self._save_output(result)
         # save model
-        self._save_model(regr)
+        self._save_model(regr, eval_metric)
         return list(result['SalePrice'])
 
     def _predict(self):

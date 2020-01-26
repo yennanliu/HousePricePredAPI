@@ -20,7 +20,7 @@ def test_save_model():
     from sklearn import linear_model
     model = linear_model.LinearRegression()
     h = HousePricePredictor()
-    result = h._save_model(model)
+    result = h._save_model(model, "dummy model evaluation")
     assert result == True
 
 def test_load_model():
