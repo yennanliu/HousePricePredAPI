@@ -19,7 +19,7 @@ $ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_tes
 - `AWS ECS` as container service run ML api via Docker
 - `AWS Elastic Load Balancer` automatically distributes incoming application traffic across multiple targets 
 - `AWS S3` as space storage models, ML output, and logs
-- Architecture idea : `develop a dockerized ML API via flask and deploy the same API hundreds even millions times on the cloud`. The usage of `AWS Elastic Load Balancer`(ELB) is for dealing with above scalability, the ELB will dispense heavy API requests to workers running on the ECS for returning the ML predicitons on time. Usage of  `AWS S3` as space saving models/outputs with versions. Can send the log to the cloudwatch for the service dashboard. Can run the API on the `AWS Fargate` for its serverless advantage (quick develop, no ec2 managment costs) as well.
+- Architecture idea : `develop a dockerized ML API via flask and deploy the same API hundreds even millions times on the cloud`. The usage of `AWS Elastic Load Balancer`(ELB) is for dealing with above scalability, the ELB will dispense heavy API requests to workers running on the ECS for returning the ML predicitons on time. Usage of  `AWS S3` as space saving models/outputs with versions. Can send the log to the `AWS cloudwatch` for the service dashboard. Can run the API on the `AWS Fargate` for its serverless advantage (quick develop, no ec2 managment costs) as well.
 
 ## Process
 
@@ -170,10 +170,14 @@ $ pytest -v tests/
 </details>
 
 ## Deployment 
-1. Deploy to DockerHub/AWS ECR
-2. Set up AWS ECS
-3. Set up AWS ECS task
-4. Run AWS ECS container service 
+- Use Travis as CI/CD tool. 
+- steps of CI/CD: 
+    1. Run unit-test 
+    2. Build dockerfile
+	1. Deploy to DockerHub/AWS ECR
+	2. Deploy to AWS ECS
+	3. Update AWS ECS task, services 
+	4. API updated
 
 ## TODO
 

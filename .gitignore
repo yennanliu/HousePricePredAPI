@@ -6,3 +6,4 @@ api/__pycache__/
 tests/__pycache__
 .cache/*
 .DS_Store
+doc/.DS_Store
