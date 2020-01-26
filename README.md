@@ -3,6 +3,14 @@
 ## INTRO
 - Develop a web service (ML api) can predict the price of house based on the [Ames housing dataset](https://www.kaggle.com/c/ames-housing-data). The web serice expose one end point that can take numerical input (79 variables json) and return prediction as output
 
+- Try the service!
+```bash
+$ curl 54.149.221.81:8000
+$ curl http://54.149.221.81:8000/REST/api/v1.0/train
+$ curl http://54.149.221.81:8000/REST/api/v1.0/model_list
+$ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_test_json.py) http://54.149.221.81:8000/REST/api/v1.0/predict_with_input
+```
+
 ## Architecture
 <p align="center"><img src ="https://github.com/yennanliu/HousePricePredAPI/blob/master/doc/pic/architecture.svg" width="800" height="400"></p>
 
@@ -11,6 +19,7 @@
 - `AWS ECS` as container service run ML api via Docker
 - `AWS Elastic Load Balancer` automatically distributes incoming application traffic across multiple targets 
 - `AWS S3` as space storage models, ML output, and logs
+- Architecture idea : `develop a dockerized ML API via flask and deploy the same API hundreds even millions times on the cloud`. The usage of `AWS Elastic Load Balancer`(ELB) is for dealing with above scalability, the ELB will dispense heavy API requests to workers running on the ECS for returning the ML predicitons on time. Usage of  `AWS S3` as space saving models/outputs with versions. Can send the log to the cloudwatch for the service dashboard. Can run the API on the `AWS Fargate` for its serverless advantage (quick develop, no ec2 managment costs) as well.
 
 ## Process
 
@@ -175,9 +184,6 @@ $ pytest -v tests/
 - Online training (when new input data, save the re-train model as new version)
 - Train (via API) with super-parameter / parameter
 - Output model as standard format
-- Input validation
-- Error handling 
-- Scaling up
-- Track log (?)
+- Track log 
 
 </details>
