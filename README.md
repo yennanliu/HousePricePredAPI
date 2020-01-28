@@ -5,10 +5,10 @@
 
 - Try the service!
 ```bash
-$ curl 54.149.221.81:8000
-$ curl http://54.149.221.81:8000/REST/api/v1.0/train
-$ curl http://54.149.221.81:8000/REST/api/v1.0/model_list
-$ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_test_json.py) http://54.149.221.81:8000/REST/api/v1.0/predict_with_input
+$ curl 35.165.231.104:8000
+$ curl http://35.165.231.104:8000/REST/api/v1.0/train
+$ curl http://35.165.231.104:8000/REST/api/v1.0/model_list
+$ curl -i -H "Content-Type: application/json" -X POST -d $(python script/get_test_json.py) http://35.165.231.104:8000/REST/api/v1.0/predict_with_input
 ```
 
 ## Architecture
