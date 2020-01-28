@@ -1,5 +1,5 @@
 import os, json 
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, jsonify, make_response, request, render_template
 import numpy as np
 # UDF 
 import sys
@@ -22,6 +22,10 @@ def not_found(error):
 @app.errorhandler(400)
 def bad_request(error):
     return make_response(jsonify({'error': 'HTTP 400 : bad request'}), 404)
+
+@app.route('/REST/api/v1.0/doc')
+def get_doc():
+    return render_template('index.html') 
 
 @app.route('/REST/api/v1.0/model_list')
 def get_model_list():
