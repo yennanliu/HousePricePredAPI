@@ -52,3 +52,46 @@
 <span class="hljs-comment"># }</span>
 
 </code></pre>
+<h3 class="code-line" data-line-start=58 data-line-end=59 ><a id="List_of_saved_models_58"></a>List of saved models</h3>
+<ul>
+<li class="has-line-data" data-line-start="59" data-line-end="61">Endpoint: <code>/REST/api/v1.0/model_list</code></li>
+</ul>
+<pre><code class="has-line-data" data-line-start="62" data-line-end="95" class="language-bash">$ curl http://localhost:<span class="hljs-number">8000</span>/REST/api/v1.<span class="hljs-number">0</span>/model_list
+<span class="hljs-comment"># {</span>
+<span class="hljs-comment"># model_list: {</span>
+<span class="hljs-comment"># model_2020-01-28-14:20:40.pickle: {</span>
+<span class="hljs-comment"># explained_variance_score: 0.7277362826660128,</span>
+<span class="hljs-comment"># mean_absolute_error: 21527.080119874023,</span>
+<span class="hljs-comment"># mean_squared_error: 1848719474.748753,</span>
+<span class="hljs-comment"># mean_squared_log_error: 0.03425059003066088,</span>
+<span class="hljs-comment"># median_absolute_error: 13947.430646647,</span>
+<span class="hljs-comment"># r2_score: 0.7276886425877571,</span>
+<span class="hljs-comment"># rmse: 42996.73795474202</span>
+<span class="hljs-comment"># },</span>
+<span class="hljs-comment"># model_2020-01-28-14:20:45.pickle: {</span>
+<span class="hljs-comment"># explained_variance_score: 0.7277362826660128,</span>
+<span class="hljs-comment"># mean_absolute_error: 21527.080119874023,</span>
+<span class="hljs-comment"># mean_squared_error: 1848719474.748753,</span>
+<span class="hljs-comment"># mean_squared_log_error: 0.03425059003066088,</span>
+<span class="hljs-comment"># median_absolute_error: 13947.430646647,</span>
+<span class="hljs-comment"># r2_score: 0.7276886425877571,</span>
+<span class="hljs-comment"># rmse: 42996.73795474202</span>
+<span class="hljs-comment"># },</span>
+<span class="hljs-comment"># model_2020-01-28-14:20:47.pickle: {</span>
+<span class="hljs-comment"># explained_variance_score: 0.7277362826660128,</span>
+<span class="hljs-comment"># mean_absolute_error: 21527.080119874023,</span>
+<span class="hljs-comment"># mean_squared_error: 1848719474.748753,</span>
+<span class="hljs-comment"># mean_squared_log_error: 0.03425059003066088,</span>
+<span class="hljs-comment"># median_absolute_error: 13947.430646647,</span>
+<span class="hljs-comment"># r2_score: 0.7276886425877571,</span>
+<span class="hljs-comment"># rmse: 42996.73795474202</span>
+<span class="hljs-comment"># }</span>
+<span class="hljs-comment"># }</span>
+<span class="hljs-comment"># }</span>
+</code></pre>
+<h3 class="code-line" data-line-start=96 data-line-end=97 ><a id="List_of_predictions_output_96"></a>List of predictions output</h3>
+<ul>
+<li class="has-line-data" data-line-start="97" data-line-end="99">Endpoint: <code>/REST/api/v1.0/predict_list</code></li>
+</ul>
+<pre><code class="has-line-data" data-line-start="100" data-line-end="102" class="language-bash"><span class="hljs-comment"># { prediction_list: "['pred_output_2020-01-28-14:20:47.csv', 'pred_output_2020-01-28-14:20:45.csv', 'pred_output_2020-01-28-14:20:40.csv']" }</span>
+</code></pre>
