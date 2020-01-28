@@ -91,6 +91,15 @@ $ curl http://localhost:8000/
 # API Hello World!
 ```
 
+2. API document
+- Endpoint: `/REST/api/v1.0/doc`
+
+```bash
+$ curl http://localhost:8000/REST/api/v1.0/doc
+#
+```
+
+
 2. Train a model
 - Endpoint: `/REST/api/v1.0/train`
 
@@ -99,7 +108,7 @@ $ curl http://localhost:8000/REST/api/v1.0/train
 
 ```
 
-3. Predict on the test data
+3. Predict with test data
 - Endpoint: `/REST/api/v1.0/predict`
 
 ```bash
@@ -107,7 +116,7 @@ $ curl http://localhost:8000/REST/api/v1.0/predict
 
 ```
 
-4. Predict on input json 
+4. Predict with input json 
 - Endpoint: `/REST/api/v1.0/predict_with_input`
 
 ```bash 
