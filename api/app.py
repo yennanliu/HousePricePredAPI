@@ -25,7 +25,7 @@ def bad_request(error):
 
 @app.route('/REST/api/v1.0/doc')
 def get_doc():
-    return render_template('index.html') 
+    return render_template('doc.html') 
 
 @app.route('/REST/api/v1.0/model_list')
 def get_model_list():

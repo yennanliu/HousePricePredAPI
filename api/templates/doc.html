@@ -1,0 +1,54 @@
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="API_Documentation_0"></a>API Documentation</h1>
+<h3 class="code-line" data-line-start=1 data-line-end=2 ><a id="Check_API_status_1"></a>Check API status</h3>
+<ul>
+<li class="has-line-data" data-line-start="2" data-line-end="4">Endpoint: <code>/</code></li>
+</ul>
+<pre><code class="has-line-data" data-line-start="5" data-line-end="8" class="language-bash">$ curl http://localhost:<span class="hljs-number">8000</span>/
+<span class="hljs-comment"># API Hello World!</span>
+</code></pre>
+<h3 class="code-line" data-line-start=9 data-line-end=10 ><a id="Train_a_model_9"></a>Train a model</h3>
+<ul>
+<li class="has-line-data" data-line-start="10" data-line-end="12">Endpoint: <code>/REST/api/v1.0/train</code></li>
+</ul>
+<pre><code class="has-line-data" data-line-start="13" data-line-end="23" class="language-bash">$ curl http://localhost:<span class="hljs-number">8000</span>/REST/api/v1.<span class="hljs-number">0</span>/train
+<span class="hljs-comment">#{</span>
+<span class="hljs-comment">#train_result: [</span>
+<span class="hljs-comment">#131509.31136750258,</span>
+<span class="hljs-comment">#166643.020115049,</span>
+<span class="hljs-comment">#180486.63636019567,</span>
+<span class="hljs-comment">#.</span>
+<span class="hljs-comment">#.]</span>
+<span class="hljs-comment">#}</span>
+</code></pre>
+<h3 class="code-line" data-line-start=24 data-line-end=25 ><a id="Predict_on_the_test_data_24"></a>Predict on the test data</h3>
+<ul>
+<li class="has-line-data" data-line-start="25" data-line-end="27">Endpoint: <code>/REST/api/v1.0/predict</code></li>
+</ul>
+<pre><code class="has-line-data" data-line-start="28" data-line-end="39" class="language-bash">$ curl http://localhost:<span class="hljs-number">8000</span>/REST/api/v1.<span class="hljs-number">0</span>/predict
+<span class="hljs-comment"># {</span>
+<span class="hljs-comment"># train_result: [</span>
+<span class="hljs-comment"># 243223.31136750258,</span>
+<span class="hljs-comment"># 5436.020115049,</span>
+<span class="hljs-comment"># 544343.63636019567,</span>
+<span class="hljs-comment"># .</span>
+<span class="hljs-comment"># .</span>
+<span class="hljs-comment"># ]</span>
+<span class="hljs-comment"># }</span>
+</code></pre>
+<h3 class="code-line" data-line-start=40 data-line-end=41 ><a id="Predict_with_Json_input_40"></a>Predict with Json input</h3>
+<ul>
+<li class="has-line-data" data-line-start="41" data-line-end="43">Endpoint: <code>/REST/api/v1.0/predict_with_input</code></li>
+</ul>
+<pre><code class="has-line-data" data-line-start="44" data-line-end="57" class="language-bash">$ curl -i -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST <span class="hljs-operator">-d</span> <span class="hljs-string">'{"MSSubClass":20.0,"LotFrontage":100.0,"LotArea":17500.0,"OverallQual":7.0,"OverallCond":8.0,"YearBuilt":1959.0,"YearRemodAdd":2002.0,"MasVnrArea":0.0,"BsmtFinSF1":1406.0,"BsmtFinSF2":0.0,"BsmtUnfSF":496.0,"TotalBsmtSF":1902.0,"1stFlrSF":1902.0,"2ndFlrSF":0.0,"LowQualFinSF":0.0,"GrLivArea":1902.0,"BsmtFullBath":1.0,"BsmtHalfBath":0.0,"FullBath":2.0,"HalfBath":0.0,"BedroomAbvGr":3.0,"KitchenAbvGr":1.0,"TotRmsAbvGrd":7.0,"Fireplaces":2.0,"GarageYrBlt":1959.0,"GarageCars":2.0,"GarageArea":567.0,"WoodDeckSF":0.0,"OpenPorchSF":207.0,"EnclosedPorch":162.0,"3SsnPorch":0.0,"ScreenPorch":0.0,"PoolArea":0.0,"MiscVal":0.0,"MoSold":5.0,"YrSold":2010.0}'</span> http://localhost:<span class="hljs-number">8000</span>/REST/api/v1.<span class="hljs-number">0</span>/predict_with_input
+
+<span class="hljs-comment"># HTTP/1.0 201 CREATED</span>
+<span class="hljs-comment"># Content-Type: application/json</span>
+<span class="hljs-comment"># Content-Length: 41</span>
+<span class="hljs-comment"># Server: Werkzeug/0.16.0 Python/3.6.10</span>
+<span class="hljs-comment"># Date: Tue, 28 Jan 2020 05:09:59 GMT</span>
+
+<span class="hljs-comment"># {</span>
+<span class="hljs-comment">#   "train_result": 16400024.222485855</span>
+<span class="hljs-comment"># }</span>
+
+</code></pre>
