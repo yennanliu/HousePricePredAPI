@@ -6,40 +6,6 @@ import sys
 sys.path.append(".")
 from Predict.predictor import HousePricePredictor
 
-def test_list_model():
-    """
-    test the _list_model method : list trained models
-    """
-    h = HousePricePredictor()
-    models = h._list_model()
-    assert type(models) == dict
-
-def test_list_prediction():
-    """
-    test the _list_prediction method : list of ML predictions
-    """
-    h = HousePricePredictor()
-    predictions = h._list_prediction()
-    assert type(predictions) == str
-
-def test_save_model():
-    """
-    test the _save_model method : test if can save model properly
-    """
-    from sklearn import linear_model
-    model = linear_model.LinearRegression()
-    h = HousePricePredictor()
-    result = h._save_model(model, "dummy model evaluation")
-    assert result == True
-
-def test_load_model():
-    """
-    test the _load_model method : test if can load model properly
-    """
-    h = HousePricePredictor()
-    model = h._load_model()
-    assert str(type(model)) == "<class 'sklearn.linear_model._base.LinearRegression'>"  or str(type(model)) == "<class 'sklearn.linear_model.base.LinearRegression'>" 
-
 def test_process_data():
     """
     test the _process_data method : test if can process data properly
