@@ -17,6 +17,10 @@ class S3FileIO:
         self.conn = client('s3') 
 
     def _load_s3_file(self, s3file):
+        """
+        load s3 file in memory
+        : s3file :  the s3 file to be loaded in memory
+        """
         s3 = boto3.resource('s3')
         try:
             obj = s3.Object(self.bucket_name, s3file)
@@ -27,12 +31,30 @@ class S3FileIO:
             return
 
     def _download_s3_file(self, s3file, to_save_file):
+        """
+        dowload s3 file to local file system
+        : s3file :  the s3 file to be downloaded 
+        : to_save_file : the name of saved downloaded file
+        """
         s3 = boto3.resource('s3')
         try:
             s3.meta.client.download_file(self.bucket_name, s3file, to_save_file)
             return 
         except Exception as e:
             print (">>> download s3 file failed!, s3file = {}, to_save_file = {}".format(s3file, to_save_file))
+
+    def _upload_s3_file(self, s3file, to_upload_file):
+        """
+        upload file s3 cloud storage
+        : s3file :  the name of uploaded file on s3
+        : to_upload_file : the file to be uploaded to s3
+        """
+        s3 = boto3.resource('s3')
+        try:
+            s3.Bucket(self.bucket_name).upload_file(to_upload_file, s3file)
+            return 
+        except Exception as e:
+            print (">>> download s3 file failed!, s3file = {}, to_upload_file = {}".format(s3file, to_upload_file))
 
     def _get_s3_file_list(self):
         """
