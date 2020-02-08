@@ -5,6 +5,7 @@ import numpy as np
 import sys
 sys.path.append(".")
 from Predict.predictor import HousePricePredictor
+from utils.file_io import FileIO
 
 app = Flask(__name__)
 
@@ -32,8 +33,8 @@ def get_doc():
 @app.route('/REST/api/v1.0/model_list')
 def get_model_list():
     cli_args = request.json 
-    h = HousePricePredictor()
-    model_list = h._list_model()
+    f = FileIO()
+    model_list = f._list_model()
     print (model_list)
     return jsonify(model_list=model_list), 201
 
@@ -41,8 +42,8 @@ def get_model_list():
 @app.route('/REST/api/v1.0/predict_list')
 def get_predict_list():
     cli_args = request.json 
-    h = HousePricePredictor()
-    prediction_list = h._list_prediction()
+    f = FileIO()
+    prediction_list = f._list_prediction()
     print (prediction_list)
     return jsonify(prediction_list=prediction_list), 201
 
