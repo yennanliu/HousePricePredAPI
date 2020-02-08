@@ -18,18 +18,21 @@ class S3FileIO:
 
     def _load_s3_file(self, s3file):
         s3 = boto3.resource('s3')
-        obj = s3.Object(self.bucket_name, s3file)
-        body = obj.get()['Body'].read()
-        print (body)
-        # with open('scaler.pkl', 'wb') as data:
-        #     s3.Bucket('bucket').download_fileobj(key, data)
-        # try:
-        #     s3.Bucket(BUCKET_NAME).download_file(s3file)
-        # except botocore.exceptions.ClientError as e:
-        #     if e.response['Error']['Code'] == "404":
-        #         print("The object does not exist.")
-        # else:
-        #     raise
+        try:
+            obj = s3.Object(self.bucket_name, s3file)
+            body = obj.get()['Body'].read()
+            return body
+        except Exception as e:
+            print (">>> load s3 file failed!, s3file = {}".format(s3file))
+            return
+
+    def _download_s3_file(self, s3file, to_save_file):
+        s3 = boto3.resource('s3')
+        try:
+            s3.meta.client.download_file(self.bucket_name, s3file, to_save_file)
+            return 
+        except Exception as e:
+            print (">>> download s3 file failed!, s3file = {}, to_save_file = {}".format(s3file, to_save_file))
 
     def _get_s3_file_list(self):
         """
