@@ -8,3 +8,5 @@ tests/__pycache__
 .DS_Store
 doc/.DS_Store
 aws_creds.yml
+utils/__pycache__/
+utils/__pycache__/*
