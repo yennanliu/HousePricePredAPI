@@ -29,6 +29,17 @@ def bad_request(error):
 def get_doc():
     return render_template('doc.html') 
 
+# check flask server (api service) health
+@app.route('/REST/api/v1.0/health')
+def get_service_status():
+    with app.test_client() as client:
+        response = client.get('/')
+        if response.status_code==200:
+            api_status = 'OK'
+        else:
+            api_status = 'Error'
+    return jsonify(api_status=api_status, http_status=response.status_code)
+
 # return list of models and their performance
 @app.route('/REST/api/v1.0/model_list')
 def get_model_list():
