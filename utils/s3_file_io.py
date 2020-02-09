@@ -59,7 +59,6 @@ class S3FileIO:
     def _get_s3_file_list(self):
         """
         load file list in s3 bucket
-        bucket_name : suntory-data
         """
         for key in self.conn.list_objects(Bucket=self.bucket_name)['Contents']:
             print(key['Key'])
@@ -67,9 +66,6 @@ class S3FileIO:
     def _load_s3_csv_as_df(self, file_name):
         """
         load and return s3 csv as dataframe
-        
-        :bucket_name : suntory-data
-        :file_name   : filtered_10_vm_joined_data/transaction_10_vm_master_vm_master_product.csv
         """
         obj = self.conn.get_object(Bucket=self.bucket_name,Key=file_name)
         df = pd.read_csv(obj['Body'])
