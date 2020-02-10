@@ -30,11 +30,11 @@ class S3FileIO:
             print (">>> load s3 file failed!, s3file = {}".format(s3file))
             return
 
-    def _download_s3_file(self, s3file, to_save_file):
+    def _download_s3_file(self, to_save_file, s3file):
         """
         dowload s3 file to local file system
-        : s3file :  the s3 file to be downloaded 
         : to_save_file : the name of saved downloaded file
+        : s3file :  the s3 file to be downloaded 
         """
         s3 = boto3.resource('s3')
         try:
@@ -43,11 +43,11 @@ class S3FileIO:
         except Exception as e:
             print (">>> download s3 file failed!, s3file = {}, to_save_file = {}".format(s3file, to_save_file))
 
-    def _upload_s3_file(self, s3file, to_upload_file):
+    def _upload_s3_file(self, to_upload_file, s3file):
         """
         upload file s3 cloud storage
-        : s3file :  the name of uploaded file on s3
         : to_upload_file : the file to be uploaded to s3
+        : s3file :  the name of uploaded file on s3
         """
         s3 = boto3.resource('s3')
         try:
