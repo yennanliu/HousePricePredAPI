@@ -1,11 +1,23 @@
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="API_Documentation_0"></a>API Documentation</h1>
-<h3 class="code-line" data-line-start=1 data-line-end=2 ><a id="Check_API_status_1"></a>Check API status</h3>
+<h3 class="code-line" data-line-start=1 data-line-end=2 ><a id="Check_API_status_1"></a>API Helloworld</h3>
 <ul>
 <li class="has-line-data" data-line-start="2" data-line-end="4">Endpoint: <code>/</code></li>
 </ul>
 <pre><code class="has-line-data" data-line-start="5" data-line-end="8" class="language-bash">$ curl http://localhost:<span class="hljs-number">8000</span>/
 <span class="hljs-comment"># API Hello World!</span>
 </code></pre>
+
+<h3 class="code-line" data-line-start=1 data-line-end=2 ><a id="Check_API_status_1"></a>Check API health</h3>
+<ul>
+<li class="has-line-data" data-line-start="2" data-line-end="4">Endpoint: <code>/REST/api/v1.0/health</code></li>
+</ul>
+<pre><code class="has-line-data" data-line-start="13" data-line-end="23" class="language-bash">$ curl http://localhost:<span class="hljs-number">8000</span>/REST/api/v1.<span class="hljs-number">0</span>/health
+<span class="hljs-comment">#{</span>
+<span class="hljs-comment">#"api_status": "OK", </span>
+<span class="hljs-comment">#"http_status": 200</span>
+<span class="hljs-comment">#}</span>
+</code></pre>
+
 <h3 class="code-line" data-line-start=9 data-line-end=10 ><a id="Train_a_model_9"></a>Train a model</h3>
 <ul>
 <li class="has-line-data" data-line-start="10" data-line-end="12">Endpoint: <code>/REST/api/v1.0/train</code></li>

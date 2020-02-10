@@ -84,12 +84,23 @@ $ curl -i -H "Content-Type: application/json" -X POST -d '{"MSSubClass":20.0,"Lo
 <details>
 <summary>Useage of the API</summary>
 
-1. Check API status
+0. API Helloworld
 - Endpoint: `/`
 
 ```bash
 $ curl http://localhost:8000/
 # API Hello World!
+```
+
+1. Check API status 
+- Endpoint: `/REST/api/v1.0/health`
+
+```bash
+$ curl http://localhost:8000/REST/api/v1.0/health
+# {
+#   "api_status": "OK", 
+#   "http_status": 200
+# }
 ```
 
 2. API document
@@ -99,7 +110,6 @@ $ curl http://localhost:8000/
 $ curl http://localhost:8000/REST/api/v1.0/doc
 #
 ```
-
 
 2. Train a model
 - Endpoint: `/REST/api/v1.0/train`
