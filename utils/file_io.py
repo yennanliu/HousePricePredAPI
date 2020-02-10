@@ -19,8 +19,12 @@ class FileIO:
         model_details = {}
         for m in models:
             model_eval_file= "model_eval/" + m.split(".")[0] + '_eval.json'
-            model_json = load_json_file(model_eval_file)
-            model_details[m] = model_json
+            try:
+                model_json = load_json_file(model_eval_file)
+                model_details[m] = model_json
+            except Exception as e:
+                print (">>> Failed to load model_eval : {}".format(model_eval_file), e)
+                model_details[m] = None
         return  model_details
 
     def _list_prediction(self):
