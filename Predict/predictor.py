@@ -10,14 +10,14 @@ from datetime import datetime
 import sys
 sys.path.append(".")
 from utils.file_io import FileIO
-
+from utils.s3_file_io import S3FileIO
 
 class HousePricePredictor:
     """
     main class do house price prediction 
     """
 
-    def __init__(self):
+    def __init__(self, prod_env=False):
         self.df_train = pd.read_csv("data/train.csv")
         self.df_test  = pd.read_csv("data/test.csv")
         self.df_columns = ['MSSubClass', 'LotFrontage', 'LotArea', 'OverallQual', 'OverallCond', 'YearBuilt', 'YearRemodAdd', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF', 'LowQualFinSF', 'GrLivArea', 'BsmtFullBath', 'BsmtHalfBath', 'FullBath', 'HalfBath', 'BedroomAbvGr', 'KitchenAbvGr', 'TotRmsAbvGrd', 'Fireplaces', 'GarageYrBlt', 'GarageCars', 'GarageArea', 'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea', 'MiscVal', 'MoSold', 'YrSold']
@@ -116,7 +116,7 @@ class HousePricePredictor:
         X_train, X_test, y_train,  y_test = train_test_split(X, y, test_size=0.3, random_state = 0)
         return X_train, X_test, y_train, y_test, test_
 
-    def _train(self):
+    def _train(self, prod_env=False):
         """
         mothod for model train 
         : output : csv file
@@ -142,17 +142,28 @@ class HousePricePredictor:
         f._save_output(result)
         # save model
         f._save_model(regr, eval_metric)
+        if prod_env == True:
+            result.to_csv("result.csv")
+            pickle.dump(regr, open("model.pickle", 'wb'))
+            s3f = S3FileIO()
+            s3f._upload_s3_file("result.csv", "output/result.csv")
+            s3f._upload_s3_file("model.pickle", "model/model.pickle")
         return list(result['SalePrice'])
 
-    def _predict(self):
+    def _predict(self, prod_env=False):
         """
         mothod for model predict 
         : output : python list
         """
         X_train, X_test, y_train,  y_test, test_ = self._prepare_train_data()
         # load model
-        f = FileIO()
-        model = f._load_model()
+        if prod_env == True:
+            s3f = S3FileIO()
+            s3f._download_s3_file("model/model.pickle", "model/model.pickle")
+            model = pickle.load(open("model/model.pickle",'rb'))
+        else:
+            f = FileIO()
+            model = f._load_model()
         print ("model", model)
         try:
             y_pred = model.predict(X_test)
@@ -164,7 +175,7 @@ class HousePricePredictor:
             print (">>> Failed : predict ", str(e))
             return None
 
-    def _predict_with_input(self, input_json):
+    def _predict_with_input(self, input_json, prod_env=False):
         """
         mothod for model predict from API call
         : input  : json
@@ -176,8 +187,13 @@ class HousePricePredictor:
             return None     
         input_df = json_normalize(input_json)
         # load model
-        f = FileIO()
-        model = f._load_model()
+        if prod_env == True:
+            s3f = S3FileIO()
+            s3f._download_s3_file("model/model.pickle", "model/model.pickle")
+            model = pickle.load(open("model/model.pickle",'rb'))
+        else:
+            f = FileIO()
+            model = f._load_model()
         print ("model", model)
         input_df_ = self._process_input_data(input_df)
         try:
