@@ -9,6 +9,9 @@ from utils.file_io import FileIO
 
 app = Flask(__name__)
 
+h = HousePricePredictor()
+f = FileIO()
+
 # API hello world 
 @app.route('/')
 def index():
@@ -44,7 +47,6 @@ def get_service_status():
 @app.route('/REST/api/v1.0/model_list')
 def get_model_list():
     cli_args = request.json 
-    f = FileIO()
     model_list = f._list_model()
     print (model_list)
     return jsonify(model_list=model_list), 201
@@ -53,7 +55,6 @@ def get_model_list():
 @app.route('/REST/api/v1.0/predict_list')
 def get_predict_list():
     cli_args = request.json 
-    f = FileIO()
     prediction_list = f._list_prediction()
     print (prediction_list)
     return jsonify(prediction_list=prediction_list), 201
@@ -62,7 +63,6 @@ def get_predict_list():
 @app.route('/REST/api/v1.0/train')
 def train_house_price_model():
     cli_args = request.json 
-    h = HousePricePredictor()
     response = h._train()
     #print (response)
     return jsonify(train_result=response), 201
@@ -71,7 +71,6 @@ def train_house_price_model():
 @app.route('/REST/api/v1.0/predict')
 def predict_house_price():
     cli_args = request.json 
-    h = HousePricePredictor()
     response = h._predict()
     #print (response)
     if not response:
@@ -82,7 +81,6 @@ def predict_house_price():
 @app.route('/REST/api/v1.0/predict_with_input', methods=['POST'])
 def predict_house_price_with_input():
     cli_args = request.json 
-    h = HousePricePredictor()
     input_data = cli_args
     response = h._predict_with_input(input_data)
     if not response:
