@@ -205,6 +205,14 @@ $ pytest -v tests/
 <details>
 <summary>TODO</summary>
 
+- Fix return msg (api) when invalid input
+- Fix error handling 
+- Fix data process logic
+- Fix model train, test evaluation logic
+- Fix duplicated class instantiation
+- Fix `high level` :  inconsistency when update some model out of all models 
+- Fast model IO
+- Automate whole process : dev -> test -> deploy to AWS
 - Offline training 
 - Online training (when new input data, save the re-train model as new version)
 - Train (via API) with super-parameter / parameter
