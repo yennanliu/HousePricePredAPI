@@ -97,8 +97,14 @@ class HousePricePredictor:
             right_boundary = median + 3*std
             column_val = float(df[col].iloc[0])
             if (column_val < left_boundary) or (column_val > right_boundary):
-               print (">>> input json value is out of 3 standard deviation")
-               print ("column : {}, value : {}, left_boundary : {}, right_boundary : {}".format(col, column_val, left_boundary, right_boundary))
+               error_msg = """
+                    >>> input json value is out of 3 standard deviation
+                    column : {},
+                    value : {}, 
+                    left_boundary : {}, 
+                    right_boundary : {}
+               """.format(col, column_val, left_boundary, right_boundary)
+               print (error_msg)
                return pd.DataFrame()
         return df
 
@@ -182,9 +188,20 @@ class HousePricePredictor:
         : output : python string
         """
         print ("input_json : ", input_json)
+
+        # if input is not a JSON (python dict)
         if type(input_json) != dict:
-            print (">>> input_json not in the desired form : dict") 
-            return None     
+            error_msg = "error, input_json not in the desired form : dict"
+            print (">>> {}".format(error_msg)) 
+            return error_msg 
+
+        # if input JSON key is not expectable
+        elif list(input_json.keys()) != self.df_columns:
+            print ("*** input_json.keys() :", list(input_json.keys()) )
+            error_msg = "error, please make sure the input with keys  : {}".format(self.df_columns)
+            print (">>> {}".format(error_msg))
+            return error_msg
+
         input_df = json_normalize(input_json)
         # load model
         if prod_env == True:
@@ -201,5 +218,6 @@ class HousePricePredictor:
             print ("y_pred :", y_pred)
             return float(y_pred[0])
         except Exception as e:
-            print (">>> Failed : predict_with_input ", str(e))
-            return None
+            error_msg = "error, {}".format(str(e))
+            print (">>> {}".format(error_msg))
+            return error_msg
