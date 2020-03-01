@@ -65,7 +65,7 @@ def train_house_price_model():
     cli_args = request.json 
     response = h._train()
     #print (response)
-    return jsonify(train_result=response), 201
+    return jsonify(result=response), 201
 
 # predict the test dataset with house price prediction model
 @app.route('/REST/api/v1.0/predict')
@@ -74,8 +74,8 @@ def predict_house_price():
     response = h._predict()
     #print (response)
     if not response:
-        return jsonify(pred_result=None), 400
-    return jsonify(pred_result=response), 201
+        return jsonify(result=None), 400
+    return jsonify(result=response), 201
 
 # predict the house price with JSON input
 @app.route('/REST/api/v1.0/predict_with_input', methods=['POST'])
@@ -83,9 +83,9 @@ def predict_house_price_with_input():
     cli_args = request.json 
     input_data = cli_args
     response = h._predict_with_input(input_data)
-    if not response:
-        return jsonify(train_result=None), 400
-    return jsonify(train_result=response), 201
+    #if not response:
+    #    return jsonify(train_result=None), 400
+    return jsonify(result=response), 201
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
