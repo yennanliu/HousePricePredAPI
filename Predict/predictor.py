@@ -63,17 +63,11 @@ class HousePricePredictor:
         : input :  df  : pandas dataframe 
         : output : df_ : pandas dataframe 
         """
-        #data = df[self.df_columns]
         data = df
-        # remove all non-numerical columns 
-        for column in data.columns:
-            if data[column].dtype == 'object':     
-                del data[column]      
-        # fill in the missing data
         data.fillna(0, inplace=True)
         df_ = data[: len(df)]
-        df_ = self._check_input_data(df_)
-        return df_
+        result  = self._check_input_data(df_)
+        return result
 
     def _check_input_data(self, df):
         """
@@ -97,15 +91,11 @@ class HousePricePredictor:
             right_boundary = median + 3*std
             column_val = float(df[col].iloc[0])
             if (column_val < left_boundary) or (column_val > right_boundary):
-               error_msg = """
-                    >>> input json value is out of 3 standard deviation
-                    column : {},
-                    value : {}, 
-                    left_boundary : {}, 
-                    right_boundary : {}
+               error_msg = """ >>> input json value is out of 3 standard deviation
+            column : {}, value : {}, left_boundary : {}, right_boundary : {}
                """.format(col, column_val, left_boundary, right_boundary)
                print (error_msg)
-               return pd.DataFrame()
+               return error_msg
         return df
 
     def _prepare_train_data(self):
@@ -212,7 +202,11 @@ class HousePricePredictor:
             f = FileIO()
             model = f._load_model()
         print ("model", model)
+
         input_df_ = self._process_input_data(input_df)
+        if type(input_df_) == str:
+            error_msg = input_df_
+            return error_msg
         try:
             y_pred = model.predict(input_df_)
             print ("y_pred :", y_pred)
