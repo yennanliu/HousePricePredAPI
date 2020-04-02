@@ -191,6 +191,10 @@ $ pytest -v tests/
 </details>
 
 ## Deployment 
+
+<details>
+<summary>Deployment</summary>
+
 - Use Travis as CI/CD tool. 
 - steps of CI/CD: 
     1. Run unit-test 
@@ -200,10 +204,12 @@ $ pytest -v tests/
 	3. Update AWS ECS task, services 
 	4. API updated
 
-## RESRful 
+</details>
+
+## RESTful 
 
 <details>
-<summary>RESRful status code</summary>
+<summary>RESTful status code</summary>
 
 |  code | comment | example  | ref|
 | --- | ----- | -------- | ----- |
