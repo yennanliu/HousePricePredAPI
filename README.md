@@ -200,6 +200,18 @@ $ pytest -v tests/
 	3. Update AWS ECS task, services 
 	4. API updated
 
+## RESRful 
+
+<details>
+<summary>RESRful status code</summary>
+
+|  code | comment | example  | ref|
+| --- | ----- | -------- | ----- |
+| `1xx` | `1xx` -> means msg. client request already been accepted or is still processing by server |  | | 
+
+
+</details>
+
 ## TODO
 
 <details>
