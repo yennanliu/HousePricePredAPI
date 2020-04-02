@@ -207,7 +207,11 @@ $ pytest -v tests/
 
 |  code | comment | example  | ref|
 | --- | ----- | -------- | ----- |
-| `1xx` | `1xx` -> means msg. client request already been accepted or is still processing by server |  | | 
+| `1xx` | `1xx` -> msg. Client request already been accepted or is processing by server |  | | 
+| `2xx` | `2xx` -> SUCCESS. Client request already accepted and completed by server |  | | 
+| `3xx` | `3xx` -> RE-DIRECT. Though client request already been accepted by server. But there some further operations needed |  | | 
+| `4xx` | `4xx` -> ERROR. Some syntax errors in client request, or the request can't be processed for some reasons |  | | 
+| `5xx` | `5xx` -> SERVER-ERROR. There are errors on server side when process the validated request from client |  | | 
 
 
 </details>
