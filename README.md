@@ -243,3 +243,13 @@ $ pytest -v tests/
 - Track log 
 
 </details>
+
+## Ref
+
+<details>
+<summary>Ref</summary>
+
+- [RESTful API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/) - stackoverflow blog : best-practices-for-rest-api-design
+- [which API? : RPC vs REST vs GraphQL,](https://www.youtube.com/watch?v=IvsANO0qZEg)
+ 
+</details> 
